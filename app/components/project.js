@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 
 const octokit = new Octokit();
 
-const getUserRepos = async (userId) => {
+const getUserRepos = async (userId, handler) => {
   const res = await octokit.request("GET /users/{user}/repos", {
     user: userId,
   });
+
+  console.log(res.headers["x-ratelimit-remaining"])
+  handler(res.headers["x-ratelimit-remaining"])
 
   if (res.status === 200) {
     console.log(`ok response for ${userId} repos!`);
@@ -22,11 +25,14 @@ const getUserRepos = async (userId) => {
   return res.data;
 };
 
-const getRepoLanguages = async (userId, repoName) => {
+const getRepoLanguages = async (userId, repoName, handler) => {
   const res = await octokit.request("GET /repos/{user}/{repo}/languages", {
     user: userId,
     repo: repoName,
   });
+
+  console.log(res.headers["x-ratelimit-remaining"])
+  handler(res.headers["x-ratelimit-remaining"])
 
   if (res.status === 200) {
     console.log(`ok response for ${userId}/${repoName}!`);
@@ -39,19 +45,19 @@ const getRepoLanguages = async (userId, repoName) => {
   return res.data;
 };
 
-function Projects({ user }) {
+function Projects({ user, counter }) {
   const [repoData, setRepoData] = useState([]);
   const [langData, setLangData] = useState({});
 
   useEffect(() => {
-    getUserRepos(user).then((data) => {
+    getUserRepos(user, counter).then((data) => {
       setRepoData([...data]);
     });
   }, [user]);
 
   useEffect(() => {
     repoData.forEach((repo) => {
-      getRepoLanguages(user, repo.name).then((data) => {
+      getRepoLanguages(user, repo.name, counter).then((data) => {
         const total = Object.values(data).reduce((a, b) => a + b, 0);
 
         const languageData = [];
@@ -87,7 +93,7 @@ function Projects({ user }) {
   return (
     <section id="Projects" className=" max-w-lg md:max-w-none mx-auto">
       <h2 className="text-xl p-4">Projects</h2>
-      <div className="grid justify-center md:grid-cols-2 lg:grid-cols-3 m-auto">
+      <div className="grid justify-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-auto">
         {cardData.map((card) => (
           <Card data={card} key={card.name} />
         ))}

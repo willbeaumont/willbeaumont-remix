@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Octokit } from "octokit";
 
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
 import { Banner } from "~/components/banner";
 import { Button, ButtonGroup, TextInput } from "~/components/button";
 import Projects from "~/components/project";
@@ -8,31 +11,36 @@ import moment from "moment";
 
 const octokit = new Octokit();
 
-const getUserData = async (userId) => {
-  const res = await octokit.request("GET /users/{user}", {
-    user: userId,
-  });
+export const loader = async () => {
+  const getUserData = async (userId) => {
+    const res = await octokit.request("GET /users/{user}", {
+      user: userId,
+    });
 
-  if (res.status === 200) {
-    console.log(`ok response for ${userId}!`);
-    console.log(res.headers["x-ratelimit-remaining"]);
-  } else {
-    console.log(`not ok response for ${userId}!`);
-    console.log(JSON.stringify(res.status));
-    console.log(JSON.stringify(res.data));
-  }
+    if (res.status === 200) {
+      console.log(`ok response for ${userId}!`);
+      console.log(res.headers["x-ratelimit-remaining"]);
+    } else {
+      console.log(`not ok response for ${userId}!`);
+      console.log(JSON.stringify(res.status));
+      console.log(JSON.stringify(res.data));
+    }
 
-  return res;
+    return { data: res };
+  };
 };
 
 function Index() {
+  const { data } = useLoaderData()
   const [alias, setAlias] = useState("willbeaumont");
   const [updateAlias, setUpdateAlias] = useState(false);
   const [user, setUser] = useState({});
   const [rateRefresh, setRateRefresh] = useState(null);
+  const [remLoads, setRemLoads] = useState(null);
 
   useEffect(() => {
     getUserData(alias).then((data) => {
+      setRemLoads(data.headers["x-ratelimit-remaining"]);
       if (data.headers["x-ratelimit-remaining"] > 0) {
         setUser({ ...data.data });
       } else {
@@ -64,6 +72,7 @@ function Index() {
           ) : (
             <Button value={user.name} action={handleClick} />
           )}
+          Remaining Page Loads: {remLoads}
           {sections.map((section) => (
             <Button
               value={section}
@@ -76,7 +85,9 @@ function Index() {
       </Banner>
       {rateRefresh ? (
         <section className="w-screen h-screen text-2xl text-center flex">
-          <div className="m-auto">Oops! Github rate limit exceeded, comeback {rateRefresh}</div>
+          <div className="m-auto">
+            Oops! Github rate limit exceeded, comeback {rateRefresh}
+          </div>
         </section>
       ) : (
         <>
@@ -97,10 +108,16 @@ function Index() {
               <p className="px-4">{user.bio}</p>
             </div>
           </section>
-          <Projects user={alias} />
+          <Projects user={alias} counter={setRemLoads} />
         </>
       )}
-      <footer className={rateRefresh ? "w-full p-4 text-center fixed bottom-0" : "w-full p-4 text-center"}>
+      <footer
+        className={
+          rateRefresh
+            ? "w-full p-4 text-center fixed bottom-0"
+            : "w-full p-4 text-center"
+        }
+      >
         Will Beaumont &copy; 2023
       </footer>
     </div>
