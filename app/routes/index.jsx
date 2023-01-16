@@ -1,51 +1,15 @@
-import { useState } from "react";
-
-import { useLoaderData } from "@remix-run/react";
 import { redirect } from "@remix-run/node";
+import Layout from "~/components/layout";
 
-import { getBio, getRepos } from "~/utils/gh.server";
-import Bio from "~/bio";
-import Projects from "~/projects";
-
-export const loader = async () => {
-  const userId = "willbeaumont";
-
-  const [bioData, projectData] = await Promise.all([
-    getBio(userId),
-    getRepos(userId),
-  ]);
-  return { bio: bioData, projects: projectData };
-};
-
-export const action = async ({ request }) => {
-  const formData = await request.formData();
-
-  const newUserId = formData.get("newAlias");
-  return redirect(`/${newUserId}`);
-};
+export const loader = () => redirect("/willbeaumont");
 
 function Index() {
-  const data = useLoaderData();
-  const [updateAlias, setUpdateAlias] = useState(false);
-
-  const handleClick = () => {
-    setUpdateAlias((old) => !old);
-  };
-
   return (
-    <div className="bg-bg-pri text-txt-pri">
-      <Bio
-        data={data.bio}
-        updateAlias={updateAlias}
-        handleClick={handleClick}
-      />
-
-      <Projects data={data.projects} />
-
-      <footer className={"w-full p-4 text-center"}>
-        Will Beaumont &copy; 2023
-      </footer>
-    </div>
+    <Layout userName={"Will Beaumont"} navigation={false}>
+      <div className="text-2xl text-center flex">
+        Retrieving GitHub Profile!
+      </div>
+    </Layout>
   );
 }
 
