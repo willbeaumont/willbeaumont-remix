@@ -27,7 +27,7 @@ const Banner = ({
                 className="text-gray-700"
                 name="newAlias"
                 type="text"
-                placeholder=" stuck? try 'Lissy93'"
+                placeholder=" stuck? try 'sdras'"
               />
             </label>
           </Form>
