@@ -41,7 +41,7 @@ const Bio = ({ data, updateAlias, handleClick }) => {
             className="rounded-xl m-auto"
           />
         </div>
-        <div className="pt-14">
+        <div className="md:pt-14">
           <h2 className="text-xl p-4 pt-0 md:py-4">About me</h2>
           <p className="px-4">{data.bio}</p>
         </div>
