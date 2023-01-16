@@ -24,7 +24,7 @@ const Banner = ({
             <label>
               <span>Enter a Github username: </span>
               <input
-                className="text-gray-700"
+                className="text-gray-700 px-2 rounded-sm"
                 name="newAlias"
                 type="text"
                 placeholder=" stuck? try 'sdras'"
