@@ -7,8 +7,8 @@ import { getBio, getRepos } from "~/utils/gh.server";
 import Bio from "~/bio";
 import Projects from "~/projects";
 
-export const loader = async () => {
-  const userId = "willbeaumont";
+export const loader = async ({ params }) => {
+  const userId = params.user;
 
   const [bioData, projectData] = await Promise.all([
     getBio(userId),
@@ -24,7 +24,7 @@ export const action = async ({ request }) => {
   return redirect(`/${newUserId}`);
 };
 
-function Index() {
+export default function NewUser() {
   const data = useLoaderData();
   const [updateAlias, setUpdateAlias] = useState(false);
 
@@ -48,5 +48,3 @@ function Index() {
     </div>
   );
 }
-
-export default Index;
