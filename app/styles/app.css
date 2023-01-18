@@ -549,6 +549,10 @@ video {
   margin: 0.5rem;
 }
 
+.m-20 {
+  margin: 5rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -591,6 +595,10 @@ video {
   width: 91.666667%;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .max-w-lg {
   max-width: 32rem;
 }
@@ -617,6 +625,11 @@ video {
 
 .justify-around {
   justify-content: space-around;
+}
+
+.break-normal {
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .rounded-xl {
@@ -646,12 +659,29 @@ video {
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
 
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
 .p-2 {
   padding: 0.5rem;
 }
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-20 {
+  padding: 5rem;
+}
+
+.p-10 {
+  padding: 2.5rem;
+}
+
+.p-14 {
+  padding: 3.5rem;
 }
 
 .px-4 {
@@ -667,6 +697,11 @@ video {
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .pt-14 {
@@ -693,6 +728,10 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.pb-8 {
+  padding-bottom: 2rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -717,6 +756,11 @@ video {
   line-height: 1.75rem;
 }
 
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .text-txt-pri {
   --tw-text-opacity: 1;
   color: rgb(20 83 45 / var(--tw-text-opacity));
@@ -735,6 +779,40 @@ video {
 .text-slate-300 {
   --tw-text-opacity: 1;
   color: rgb(203 213 225 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.text-blue-50 {
+  --tw-text-opacity: 1;
+  color: rgb(239 246 255 / var(--tw-text-opacity));
+}
+
+.text-blue-100 {
+  --tw-text-opacity: 1;
+  color: rgb(219 234 254 / var(--tw-text-opacity));
+}
+
+.text-blue-200 {
+  --tw-text-opacity: 1;
+  color: rgb(191 219 254 / var(--tw-text-opacity));
+}
+
+.text-blue-300 {
+  --tw-text-opacity: 1;
+  color: rgb(147 197 253 / var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
 }
 
 .filter {

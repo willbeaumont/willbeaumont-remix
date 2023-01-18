@@ -13,4 +13,13 @@ function Index() {
   );
 }
 
+export function ErrorBoundary() {
+  return (
+    <div className="bg-red-600 text-white p-14">
+      <h1 className="text-3xl pb-8">Page Error</h1>
+      <p>Something unexpected went wrong. Sorry about that.</p>
+    </div>
+  );
+}
+
 export default Index;

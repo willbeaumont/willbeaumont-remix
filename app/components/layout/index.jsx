@@ -2,7 +2,7 @@ import Banner from "~/components/UI/banner";
 
 const Layout = ({ children, banner = true, ...props }) => {
   return (
-    <div className={`relative bg-bg-pri text-txt-pri`}>
+    <div className={`relative`}>
       <header>
         <Banner {...props} />
       </header>

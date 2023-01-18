@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { redirect } from "@remix-run/node";
 
 import { getBio, getRepos } from "~/utils/gh.server";
@@ -32,5 +32,21 @@ export default function NewUser() {
       <Bio data={data.bio} />
       <Projects data={data.projects} navId={"projects"} />
     </Layout>
+  );
+}
+
+export function ErrorBoundary({ error }) {
+  const { user } = useParams();
+  return (
+    <div className="bg-red-600 text-white p-14">
+      <h1 className="text-3xl pb-8">Page Error</h1>
+      <p className="w-auto break-normal">
+        {`There was an error loading user '${user}'--double check your GitHub username and try again at the `}
+        <Link to="/" className="text-txt-pri underline">
+          homepage
+        </Link>
+        .
+      </p>
+    </div>
   );
 }
