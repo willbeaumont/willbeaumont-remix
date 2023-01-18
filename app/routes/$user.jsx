@@ -18,7 +18,7 @@ export const loader = async ({ params }) => {
     ]);
     return { bio: bioData, projects: projectData };
   } catch (error) {
-    throw new Response("User data not found.", {
+    throw new Response("Problem calling github api.", {
       status: error.status
     });
   }
