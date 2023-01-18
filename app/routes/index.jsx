@@ -3,6 +3,13 @@ import Layout from "~/components/layout";
 
 export const loader = () => redirect("/willbeaumont");
 
+export const meta = () => {
+  return {
+    description: "Default loading for dev page.",
+    title: `Developer Site | Loading`,
+  };
+};
+
 function Index() {
   return (
     <Layout userName={"Will Beaumont"} navigation={false}>

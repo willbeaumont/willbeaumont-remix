@@ -15,7 +15,7 @@ export function links() {
 
 export const meta = () => ({
   charset: "utf-8",
-  title: "Will Beaumont",
+  title: "Developer Site",
   viewport: "width=device-width,initial-scale=1",
 });
 
