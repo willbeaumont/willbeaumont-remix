@@ -2,9 +2,18 @@ import LanguageBar from "~/components/project/languageBar";
 
 function emojiElements(classValue, innerText) {
   const emojis = ["⭐️", "👀", "🔱"];
-  return emojis.map((emoji, i) => (
-    <p className={`${classValue}`} key={emoji}>{`${emoji} ${innerText[i]}`}</p>
-  ));
+  return emojis.map((emoji, i) => {
+    let textValue = innerText[i];
+    if (typeof innerText[i] == "number") {
+      textValue = textValue.toLocaleString();
+    }
+    return (
+      <p
+        className={`${classValue}`}
+        key={emoji}
+      >{`${emoji} ${textValue}`}</p>
+    );
+  });
 }
 
 function Projects({ data, navId }) {
@@ -12,7 +21,7 @@ function Projects({ data, navId }) {
   return (
     <section id={navId} className="max-w-lg md:max-w-none mx-auto">
       <h2 className="text-xl p-4">Projects</h2>
-      <div className="grid justify-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-auto">
+      <div className="grid justify-center md:grid-cols-2 lx:grid-cols-3 2xl:grid-cols-4 m-auto">
         {cardData.map((card) => (
           <Card data={card} key={card.name} />
         ))}

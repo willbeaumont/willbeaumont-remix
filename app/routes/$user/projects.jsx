@@ -1,24 +1,14 @@
-import {
-  Link,
-  Outlet,
-  useCatch,
-  useLoaderData,
-  useParams,
-} from "@remix-run/react";
-import { redirect } from "@remix-run/node";
+import { Link, useCatch, useLoaderData, useParams } from "@remix-run/react";
 
-import { getBio } from "~/utils/gh.server";
-import Layout from "~/components/layout";
-import Bio from "~/components/bio";
-
-import { SECTIONS } from "~/constants/sections";
+import { getRepos } from "~/utils/gh.server";
+import Projects from "~/components/project";
 
 export const loader = async ({ params }) => {
   const userId = params.user;
 
   try {
-    const bioData = await getBio(userId);
-    return bioData;
+    const projectData = await getRepos(userId);
+    return projectData;
   } catch (error) {
     throw new Response("Problem calling github api.", {
       status: error.status,
@@ -26,33 +16,19 @@ export const loader = async ({ params }) => {
   }
 };
 
-export const action = async ({ request }) => {
-  const formData = await request.formData();
-  const newUserId = formData.get("newAlias");
-  return redirect(`/${newUserId}/projects`);
-};
-
-export const meta = ({ data }) => {
-  const metaTags = {
+export const meta = () => {
+  const { user } = useParams();
+  return {
     description: "GitHub user account information as a dev page.",
+    title: `Developer Site | ${user}`,
   };
-  if (!data) {
-    const { user } = useParams();
-    metaTags["title"] = `Developer Site | ${user}`;
-  } else {
-    metaTags["title"] = `Developer Site | ${data.name}`;
-  }
-  return metaTags;
 };
 
-export default function NewUser() {
+export default function UserProject() {
   const data = useLoaderData();
 
   return (
-    <Layout userName={data.name} navSections={SECTIONS}>
-      <Bio data={data} />
-      <Outlet />
-    </Layout>
+      <Projects data={data} navId={"projects"} />
   );
 }
 

@@ -1,7 +1,7 @@
 import { redirect } from "@remix-run/node";
 import Layout from "~/components/layout";
 
-export const loader = () => redirect("/willbeaumont");
+export const loader = () => redirect("/willbeaumont/projects");
 
 export const meta = () => {
   return {
