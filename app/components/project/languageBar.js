@@ -9,13 +9,14 @@ const LanguageBar = ({ data }) => {
         height={100}
         theme={VictoryTheme.material}
         colorScale={colorSet}
+        range={{ x: [20, 330], y: [50, 250] }}
       >
         {data.map((o, id) => (
           <VictoryBar
             horizontal
             key={`bar-${id}`}
             data={[o]}
-            x="language"
+            x="name"
             y="value"
           />
         ))}
