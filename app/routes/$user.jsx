@@ -5,7 +5,7 @@ import {
   useLoaderData,
   useParams,
 } from "@remix-run/react";
-import { redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 
 import { getBio } from "~/utils/gh.server";
 import Layout from "~/components/layout";
@@ -15,10 +15,11 @@ import { SECTIONS } from "~/constants/sections";
 
 export const loader = async ({ params }) => {
   const userId = params.user;
-
+  
   try {
     const bioData = await getBio(userId);
-    return bioData;
+    
+    return json(bioData, {headers: {"Cache-Control": "max-age=300, s-maxage=600"}});
   } catch (error) {
     throw new Response("Problem calling github api.", {
       status: error.status,

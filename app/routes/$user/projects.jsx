@@ -2,13 +2,24 @@ import { Link, useCatch, useLoaderData, useParams } from "@remix-run/react";
 
 import { getRepos } from "~/utils/gh.server";
 import Projects from "~/components/project";
+import { json } from "@remix-run/node";
+
+const data = {};
 
 export const loader = async ({ params }) => {
   const userId = params.user;
+  if (data[userId]) {
+    return data[userId]
+  }
+
+  // 1. have a long running server to cache data render/begin/railway .com
+  // 2. app caching - redis in memory database (video 1 or 2 of remix)
+  // 3. cdn - should honor http caching header
+  // 4. user defer
 
   try {
-    const projectData = await getRepos(userId);
-    return projectData;
+    data[userId] = await getRepos(userId);
+    return json(data[userId], {headers: {"Cache-Control": "max-age=300, s-maxage=600"}});
   } catch (error) {
     throw new Response("Problem calling github api.", {
       status: error.status,
@@ -51,6 +62,7 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }) {
+  console.log(error)
   return (
     <div className="bg-red-600 text-white p-14">
       <h1 className="text-3xl pb-8">Page Error</h1>
