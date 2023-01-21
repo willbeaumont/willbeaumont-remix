@@ -27,9 +27,7 @@ export const meta = () => {
 export default function UserProject() {
   const data = useLoaderData();
 
-  return (
-      <Projects data={data} navId={"projects"} />
-  );
+  return <Projects data={data} navId={"projects"} />;
 }
 
 export function CatchBoundary() {
