@@ -15,9 +15,9 @@ const Banner = ({
   return (
     <div className="bg-bg-tri text-txt-pri p-2 text-xl fixed top-0 w-full z-40">
       <div className="flex justify-between">
-        {transition.state !== "idle" ? (
+        {transition.state === "submitting" ? (
           <div>
-            Retrieving {transition.submission.formData.get("newAlias")}...
+            Retrieving {transition.submission?.formData.get("newAlias")}...
           </div>
         ) : showForm ? (
           <Form method="post" onSubmit={() => toggleShow()}>
