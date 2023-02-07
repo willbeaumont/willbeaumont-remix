@@ -1,4 +1,39 @@
-# Welcome to Remix!
+# Welcome!
+
+This project utilizes the GitHub API to provide data for a developer portfolio page. I'm open to contributors, feel free to fork, suggest improvements etc!
+
+Link: https://willbeaumont-remix.netlify.app/
+
+## How to look at a different developer
+
+1. Click on the name in the top left corner
+2. Enter a GitHub username
+
+## Projects Section
+
+The site displays the 10 most recently pushed _public_ repos for the user with the following data:
+
+- Title
+- Description
+- Project languages (recreated graphic using [Victory](https://formidable.com/open-source/victory/docs/))
+- Last push date
+- Number of stars, watchers, and forks
+
+## Enhancements
+
+Here are some ideas for improvements I can think of if you're looking for somewhere to get started!
+
+- [ ] Make it easier for users to understand they can update the page to show different GitHub user data
+
+- [ ] Add a section that totals and displays language percentages for all public repos
+
+- [ ] Allow users to login/auth with their own GitHub account (60 requests/hr for unauth, 5k requests/hr for auth users)
+
+- [ ] ???
+
+---
+
+# Remix Boilerplate
 
 - [Remix Docs](https://remix.run/docs)
 - [Netlify Functions](https://www.netlify.com/products/functions/)
